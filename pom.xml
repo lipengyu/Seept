@@ -7,8 +7,30 @@
     <name>seept :: project</name>
     <packaging>pom</packaging>
 
+    <developers>
+        <developer>
+            <id>quanet</id>
+            <name>Li Hao Quan</name>
+            <email>quanet at 163.com</email>
+            <organization></organization>
+            <roles>
+                <role>coder</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <!-- 项目模块 -->
     <modules>
         <module>framework</module>
+        <module>modules</module>
     </modules>
 
 </project>
