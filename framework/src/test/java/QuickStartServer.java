@@ -1,4 +1,5 @@
 import com.seept.framework.test.jetty.JettyFactory;
+import com.seept.framework.test.springtest.ProfilesInfo;
 import org.eclipse.jetty.server.Server;
 
 /**
@@ -15,12 +16,15 @@ public class QuickStartServer {
 
     public static void main(String[] args) throws Exception{
 
+        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.TESTING);//设置服务形式;
+
         Server server = JettyFactory.openServer(PORT,CONTEXT);
         JettyFactory.setTldJarNames(server);
 
         try {
             server.start();
             System.out.println("[INFO] Server running at http://localhost:" + PORT + CONTEXT);
+            System.out.println("[HINT] Hit Enter to reload the application quickly");
 
             // 等待用户输入回车重载应用.
             while (true) {
@@ -29,7 +33,6 @@ public class QuickStartServer {
                     JettyFactory.reloadContext(server);
                 }
             }
-
         }catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
