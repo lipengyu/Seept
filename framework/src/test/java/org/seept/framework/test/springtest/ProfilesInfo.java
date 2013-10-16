@@ -1,4 +1,4 @@
-package com.seept.framework.test.springtest;
+package org.seept.framework.test.springtest;
 
 /**
  * @author : lihaoquan

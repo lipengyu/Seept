@@ -1,5 +1,5 @@
-import com.seept.framework.test.jetty.JettyFactory;
-import com.seept.framework.test.springtest.ProfilesInfo;
+import org.seept.framework.test.jetty.JettyFactory;
+import org.seept.framework.test.springtest.ProfilesInfo;
 import org.eclipse.jetty.server.Server;
 
 /**

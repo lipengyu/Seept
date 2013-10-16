@@ -1,4 +1,4 @@
-package com.seept.framework.test.jetty;
+package org.seept.framework.test.jetty;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;

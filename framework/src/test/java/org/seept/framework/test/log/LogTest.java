@@ -1,4 +1,4 @@
-package com.seept.framework.test.log;
+package org.seept.framework.test.log;
 
 /**
  * @author : lihaoquan
