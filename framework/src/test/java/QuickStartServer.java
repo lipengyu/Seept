@@ -19,7 +19,7 @@ public class QuickStartServer {
         ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.TESTING);//设置服务形式;
 
         Server server = JettyFactory.openServer(PORT,CONTEXT);
-        JettyFactory.setTldJarNames(server);
+        JettyFactory.setTldJarNames(server,TLD_JAR_NAMES);
 
         try {
             server.start();
