@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 
 /**
  * @author: Quan
- * @Description: 具备事务能力的单元测试用例
+ * @Description:
  */
 @ActiveProfiles(ProfilesInfo.TESTING)
 public class TransactionalTestCase extends AbstractTransactionalJUnit4SpringContextTests {
