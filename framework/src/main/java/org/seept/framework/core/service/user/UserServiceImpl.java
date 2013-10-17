@@ -43,17 +43,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        return (List<User>) userDao.findAll();
     }
 
     @Override
     public User getUser(String id) {
-        return null;
+        return userDao.findById(id);
     }
 
     @Override
     public User updateUser(User user) {
-        return null;
+        return userDao.save(user);
     }
 
     /**

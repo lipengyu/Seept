@@ -23,7 +23,7 @@ public interface IUserService {
      * 获取所有用户
      * @return
      */
-    public List<User> getAllUsers();
+    public Iterable<User> getAllUsers();
 
 
     /**
