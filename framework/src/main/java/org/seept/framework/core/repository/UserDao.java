@@ -1,12 +1,16 @@
 package org.seept.framework.core.repository;
 
 import org.seept.framework.core.entity.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @author : lihaoquan
  */
-public interface UserDao extends CrudRepository<User,String> {
+public interface UserDao extends PagingAndSortingRepository<User,String>
+        , JpaSpecificationExecutor<User> {
 
 
     /**
@@ -22,4 +26,8 @@ public interface UserDao extends CrudRepository<User,String> {
      */
     public User findById(String id);
 
+
+    @Modifying
+    @Query("delete from User user where user.loginName = ?1")
+    public void deleteByLoginName(String userLoginName);
 }

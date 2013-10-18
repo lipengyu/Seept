@@ -56,9 +56,11 @@ public class UserDaoTest extends TransactionalTestCase {
             for(User currentUser : userList) {
                 System.out.println("----"+currentUser.getLoginName());
             }
-            logger.info("正在进行删除操作");
+            logger.info("正在进行删除操作:"+createUser.getLoginName());
 
-            userDao.delete(createUser.getId());
+            //userDao.delete(createUser.getId());
+
+            userDao.deleteByLoginName(createUser.getLoginName());
 
             int count2 = (int) userDao.count();
 
