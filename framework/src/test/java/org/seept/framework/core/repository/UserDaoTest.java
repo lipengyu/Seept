@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author : lihaoquan
@@ -49,6 +50,19 @@ public class UserDaoTest extends TransactionalTestCase {
             int count = (int) userDao.count();
 
             logger.info("当前用户数:"+count);
+
+
+            List<User> userList  = (List<User>) userDao.findAll();
+            for(User currentUser : userList) {
+                System.out.println("----"+currentUser.getLoginName());
+            }
+            logger.info("正在进行删除操作");
+
+            userDao.delete(createUser.getId());
+
+            int count2 = (int) userDao.count();
+
+            logger.info("当前用户数:"+count2);
 
         }else {
             logger.info("创建用户失败");
