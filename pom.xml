@@ -30,7 +30,6 @@
     <!-- 项目模块 -->
     <modules>
         <module>framework</module>
-        <module>modules</module>
     </modules>
 
 </project>

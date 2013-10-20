@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
+        <seept.version>4.1.1-SNAPSHOT</seept.version>
         <jdk.version>1.6</jdk.version>
         <spring.version>3.2.4.RELEASE</spring.version>
         <jetty.version>7.6.13.v20130916</jetty.version>
@@ -34,6 +35,7 @@
 
     <dependencies>
         <!-- =========================== 框架依赖配置 开始========================= -->
+
         <!-- Spring Context 的依赖配置 -->
         <dependency>
             <groupId>org.springframework</groupId>
