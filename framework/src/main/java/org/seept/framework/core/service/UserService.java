@@ -1,8 +1,10 @@
 package org.seept.framework.core.service;
 
+import com.google.common.collect.Lists;
 import org.seept.framework.core.entity.User;
 import org.seept.framework.core.repository.UserDao;
 import org.seept.framework.core.util.QueryUtil;
+import org.seept.framework.modules.persistance.ParametersFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 
@@ -34,14 +40,7 @@ public class UserService {
      * @return
      */
     public User createUser(User user) {
-        if(QueryUtil.isNotEmpty(user)
-                && QueryUtil.isNotEmpty(user.getId())) {
-            User fetchUser = userDao.findOne(user.getId());
-            if(QueryUtil.isNotEmpty(fetchUser)) {
-                return fetchUser;
-            }
-        }
-        return null;
+        return userDao.save(user);
     }
 
     /**
@@ -78,6 +77,41 @@ public class UserService {
         PageRequest pageRequest = buildPageRequest(pageNum,pageSize,sortType);
         Specification<User> specification = buildSpecification(filterParmatersMap);
         return userDao.findAll(specification,pageRequest);
+    }
+
+
+    /**
+     * 获取用户名查询的集合
+     * @param name
+     * @return
+     */
+    public List<User> getTestNameUsers(String name) {
+        final String username = name;
+        return userDao.findAll(getPageSpecication(username));
+    }
+
+    public Specification getPageSpecication(final String name) {
+        return new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> userRoot, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                //return criteriaBuilder.equal(userRoot.get("name"),name);//1
+
+                /*Predicate predicate = criteriaBuilder.conjunction();
+                predicate.getExpressions().add(criteriaBuilder.like(userRoot.<String>get("name"),"%"+name+"%"));
+                return predicate;*/ //2
+
+                List<Predicate> predicates = Lists.newArrayList();
+                predicates.add(criteriaBuilder.like(userRoot.<String>get("name"), "%" + name + "%"));
+
+                // 将所有条件用 and 联合起来
+                if (predicates.size() > 0) {
+                    return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+                }
+
+                return criteriaBuilder.conjunction();
+            }
+        };
+
     }
 
     public User getUser(String id) {
@@ -126,7 +160,14 @@ public class UserService {
      */
     public Specification<User> buildSpecification(Map<String,Object> parmatersMap) {
         Specification<User> specification = null;
+        try {
 
+            List<ParametersFilter> parametersFilters = ParametersFilter.parse(parmatersMap);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return specification;
     }
 
