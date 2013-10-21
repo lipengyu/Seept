@@ -51,14 +51,11 @@ public class UserServiceTest extends TransactionalTestCase {
         }
 
         Map paramsMap = Maps.newHashMap();
-        paramsMap.put("name","li");
+        paramsMap.put("LIKE_name","Li");
 
-        //Page<User> userPage = userService.getPageUsers(paramsMap,1,10);
+        Page<User> userPage = userService.getPageUsers(paramsMap,1,1);
 
-        List<User> testUsers = userService.getTestNameUsers("LiQ");
+        System.out.println(userPage.getTotalPages());
 
-        for(User testUser : testUsers) {
-            System.out.println("--------------user name :"+ testUser.getName());
-        }
     }
 }

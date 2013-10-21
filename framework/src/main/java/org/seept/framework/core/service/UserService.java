@@ -5,6 +5,7 @@ import org.seept.framework.core.entity.User;
 import org.seept.framework.core.repository.UserDao;
 import org.seept.framework.core.util.QueryUtil;
 import org.seept.framework.modules.persistance.ParametersFilter;
+import org.seept.framework.modules.persistance.SpecificationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,30 @@ public class UserService {
         return (List<User>) userDao.findAll();
     }
 
+
+
+    public User getUser(String id) {
+        return userDao.findById(id);
+    }
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    public User updateUser(User user) {
+        return userDao.save(user);
+    }
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    public void deleteUser(String id) {
+        userDao.delete(id);
+    }
+
+
     /**
      * 获取分页处理的用户列表
      * @param filterParmatersMap
@@ -81,62 +106,6 @@ public class UserService {
 
 
     /**
-     * 获取用户名查询的集合
-     * @param name
-     * @return
-     */
-    public List<User> getTestNameUsers(String name) {
-        final String username = name;
-        return userDao.findAll(getPageSpecication(username));
-    }
-
-    public Specification getPageSpecication(final String name) {
-        return new Specification<User>() {
-            @Override
-            public Predicate toPredicate(Root<User> userRoot, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                //return criteriaBuilder.equal(userRoot.get("name"),name);//1
-
-                /*Predicate predicate = criteriaBuilder.conjunction();
-                predicate.getExpressions().add(criteriaBuilder.like(userRoot.<String>get("name"),"%"+name+"%"));
-                return predicate;*/ //2
-
-                List<Predicate> predicates = Lists.newArrayList();
-                predicates.add(criteriaBuilder.like(userRoot.<String>get("name"), "%" + name + "%"));
-
-                // 将所有条件用 and 联合起来
-                if (predicates.size() > 0) {
-                    return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-                }
-
-                return criteriaBuilder.conjunction();
-            }
-        };
-
-    }
-
-    public User getUser(String id) {
-        return userDao.findById(id);
-    }
-
-    /**
-     * 更新用户信息
-     * @param user
-     * @return
-     */
-    public User updateUser(User user) {
-        return userDao.save(user);
-    }
-
-    /**
-     * 删除用户
-     * @param id
-     */
-    public void deleteUser(String id) {
-        userDao.delete(id);
-    }
-
-
-    /**
      * 创建分页请求
      * @param pageNum
      * @param pageSize
@@ -161,10 +130,8 @@ public class UserService {
     public Specification<User> buildSpecification(Map<String,Object> parmatersMap) {
         Specification<User> specification = null;
         try {
-
-            List<ParametersFilter> parametersFilters = ParametersFilter.parse(parmatersMap);
-
-
+            specification = SpecificationManager
+                      .buildSpecification(ParametersFilter.parse(parmatersMap),User.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
