@@ -1,4 +1,4 @@
-package org.seept.framework.core.web;
+package org.seept.framework.core.web.user;
 
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/login")
 public class LoginController {
 
+    private static String LOGIN_PAGE = "/index.jsp";
+
     /**
      * 登陆处理函数
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
     public String login() {
-        return "/index.jsp";
+        return LOGIN_PAGE;
     }
 
 
@@ -33,6 +35,6 @@ public class LoginController {
     public String disLogin(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String userName,
                            Model model) {
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, userName);
-        return "/index.jsp";
+        return LOGIN_PAGE;
     }
 }

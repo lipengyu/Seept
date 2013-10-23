@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/template/">
+	<excludes>
+		<pattern>/tools/*</pattern>
+		<pattern>/static/*</pattern>
+	</excludes>
+	
+	<decorator name="default" page="content.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>
