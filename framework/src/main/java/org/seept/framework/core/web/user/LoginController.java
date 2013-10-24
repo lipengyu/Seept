@@ -1,6 +1,8 @@
 package org.seept.framework.core.web.user;
 
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/login")
 public class LoginController {
 
-    private static String LOGIN_PAGE = "/index.jsp";
+    private static String LOGIN_PAGE = "/account/login.jsp";
+
+
+    Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /**
      * 登陆处理函数
@@ -23,6 +28,8 @@ public class LoginController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String login() {
+
+        logger.info("用户正在登陆系统... ...");
         return LOGIN_PAGE;
     }
 

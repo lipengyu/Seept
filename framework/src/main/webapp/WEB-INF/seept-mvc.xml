@@ -25,7 +25,7 @@
 
     <!-- 定义JSP文件的位置 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value=""/>
+        <property name="prefix" value="/WEB-INF/view"/>
         <property name="suffix" value=""/>
     </bean>
 
