@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="header">
     <div id="title">
-        Seppt 管理系统
+        SEEPT 爬虫管理
     </div>
 </div>
