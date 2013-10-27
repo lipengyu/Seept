@@ -30,4 +30,11 @@ public interface UserDao extends PagingAndSortingRepository<User,String>
     @Modifying
     @Query("delete from User user where user.loginName = ?1")
     public void deleteByLoginName(String userLoginName);
+
+    /**
+     * 通过登陆名进行查询
+     * @param loginName
+     * @return
+     */
+    User findByLoginName(String loginName);
 }

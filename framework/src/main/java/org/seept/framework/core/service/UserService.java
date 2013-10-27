@@ -76,6 +76,11 @@ public class UserService {
     }
 
 
+    public User findByLoginName(String loginName) {
+        return userDao.findByLoginName(loginName);
+    }
+
+
     /**
      * 获取分页处理的用户列表
      * @param filterParmatersMap
