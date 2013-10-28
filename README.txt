@@ -1,2 +1,3 @@
 Seept主要使用Spring框架开发的企业级的平台管理;
 
+xlib主要存放,目前没有在Maven仓库中存放的JAR包,这些JAR包需要扩展的方式引入Framework模块中
