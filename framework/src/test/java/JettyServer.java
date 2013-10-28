@@ -1,13 +1,13 @@
+import org.eclipse.jetty.server.Server;
 import org.seept.framework.test.jetty.JettyFactory;
 import org.seept.framework.test.springtest.ProfilesInfo;
-import org.eclipse.jetty.server.Server;
 
 /**
  * @author : lihaoquan
  *
- * Jetty æœåŠ¡å™¨å¯åŠ¨ç¨‹åº
+ * Jetty ·şÎñÆ÷Æô¶¯³ÌĞò
  */
-public class QuickStartServer {
+public class JettyServer {
 
     public static final int PORT = 7001;
     public static final String CONTEXT = "/seept";
@@ -16,9 +16,9 @@ public class QuickStartServer {
 
     public static void main(String[] args) throws Exception{
 
-        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.DEVELOPMENT);//è®¾ç½®æœåŠ¡å½¢å¼;
+        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.DEVELOPMENT);//ÉèÖÃ·şÎñĞÎÊ½;
 
-        Server server = JettyFactory.openServer(PORT,CONTEXT);
+        Server server = JettyFactory.openServer(PORT, CONTEXT);
         JettyFactory.setTldJarNames(server,TLD_JAR_NAMES);
 
         try {
@@ -26,7 +26,7 @@ public class QuickStartServer {
             System.out.println("[INFO] Server running at http://localhost:" + PORT + CONTEXT);
             System.out.println("[HINT] Hit Enter to reload the application quickly");
 
-            // ç­‰å¾…ç”¨æˆ·è¾“å…¥å›è½¦é‡è½½åº”ç”¨.
+            // µÈ´ıÓÃ»§ÊäÈë»Ø³µÖØÔØÓ¦ÓÃ.
             while (true) {
                 char c = (char) System.in.read();
                 if (c == '\n') {
