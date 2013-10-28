@@ -16,7 +16,7 @@ public class QuickStartServer {
 
     public static void main(String[] args) throws Exception{
 
-        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.TESTING);//设置服务形式;
+        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.DEVELOPMENT);//设置服务形式;
 
         Server server = JettyFactory.openServer(PORT,CONTEXT);
         JettyFactory.setTldJarNames(server,TLD_JAR_NAMES);

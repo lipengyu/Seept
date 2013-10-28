@@ -1,6 +1,4 @@
 
-  drop table s_user;
-
   create table S_USER
   (
     ID            VARCHAR2(64) not null,
@@ -12,3 +10,5 @@
   alter table S_USER
     add constraint PK_SUSER_ID primary key (ID)
     using index;
+
+
