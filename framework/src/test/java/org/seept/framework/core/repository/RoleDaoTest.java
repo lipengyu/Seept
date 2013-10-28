@@ -22,9 +22,6 @@ public class RoleDaoTest extends TransactionalTestCase {
     @Autowired
     private RoleDao roleDao;
 
-    /**
-     * »´≤ø≤È—Ø≤‚ ‘
-     */
     @Test
     public void testFindAll() {
         logger.info("roleDao test find all begin");

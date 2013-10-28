@@ -5,7 +5,6 @@ import org.seept.framework.test.springtest.ProfilesInfo;
 /**
  * @author : lihaoquan
  *
- * Jetty 服务器启动程序
  */
 public class JettyServer {
 
@@ -16,7 +15,7 @@ public class JettyServer {
 
     public static void main(String[] args) throws Exception{
 
-        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.DEVELOPMENT);//设置服务形式;
+        ProfilesInfo.setProfileAsSystemProperty(ProfilesInfo.DEVELOPMENT);
 
         Server server = JettyFactory.openServer(PORT, CONTEXT);
         JettyFactory.setTldJarNames(server,TLD_JAR_NAMES);
@@ -26,7 +25,6 @@ public class JettyServer {
             System.out.println("[INFO] Server running at http://localhost:" + PORT + CONTEXT);
             System.out.println("[HINT] Hit Enter to reload the application quickly");
 
-            // 等待用户输入回车重载应用.
             while (true) {
                 char c = (char) System.in.read();
                 if (c == '\n') {

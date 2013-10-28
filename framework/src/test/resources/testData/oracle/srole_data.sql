@@ -1,6 +1,6 @@
 insert into s_role (ID, NAME, ROLEDESC)
-values ('R001', 'user', '普通用户角色');
+values ('R001', 'user', 'user');
 
 insert into s_role (ID, NAME, ROLEDESC)
-values ('R002', 'admin', '管理员角色');
+values ('R002', 'admin', 'admin');
 
