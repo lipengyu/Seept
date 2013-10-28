@@ -79,6 +79,18 @@ public class SeeptRealm extends AuthorizingRealm {
             this.name = name;
         }
 
+        /**
+         * 在前台可通过 <shiro:principal property="loginName" /> 获得属性值
+         * @return
+         */
+        public String getLoginName() {
+            return loginName;
+        }
+
+        /**
+         * 在前台可通过 <shiro:principal property="name" /> 获得属性值
+         * @return
+         */
         public String getName() {
             return name;
         }
