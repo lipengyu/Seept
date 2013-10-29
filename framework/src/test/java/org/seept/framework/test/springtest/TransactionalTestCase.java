@@ -10,7 +10,7 @@ import javax.sql.DataSource;
  * @author: Quan
  * @Description:
  */
-@ActiveProfiles(ProfilesInfo.TESTING)
+@ActiveProfiles(ProfilesInfo.DEVELOPMENT)
 public class TransactionalTestCase extends AbstractTransactionalJUnit4SpringContextTests {
 
     protected DataSource dataSource;

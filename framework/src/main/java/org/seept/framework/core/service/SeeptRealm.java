@@ -1,6 +1,8 @@
 package org.seept.framework.core.service;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -11,6 +13,7 @@ import org.seept.framework.core.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author : lihaoquan
@@ -29,7 +32,8 @@ public class SeeptRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SecurityUser securityUser =  (SecurityUser)principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole("user");
+        List<String> roles = userService.getRoleNameByUserId(securityUser.getId());
+        info.addRoles(roles);
         return info;
     }
 
@@ -77,6 +81,10 @@ public class SeeptRealm extends AuthorizingRealm {
             this.id = id;
             this.loginName = loginName;
             this.name = name;
+        }
+
+        public String getId() {
+            return id;
         }
 
         /**

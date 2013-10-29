@@ -28,7 +28,7 @@ public class UserServiceTest extends TransactionalTestCase {
     @Autowired
     private UserService userService;
 
-    @Before
+    //@Before
     public void create() {
         logger.info("创建测试用户");
         User user = new User();
@@ -56,6 +56,11 @@ public class UserServiceTest extends TransactionalTestCase {
         Page<User> userPage = userService.getPageUsers(paramsMap,1,1);
 
         System.out.println(userPage.getTotalPages());
+
+
+        List<String> roleList = userService.getRoleNameByUserId("U002");
+
+        logger.info("roleList : "+roleList.size());
 
     }
 }

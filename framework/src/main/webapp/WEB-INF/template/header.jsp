@@ -8,6 +8,19 @@
             Seept开发平台<small>--Nutch爬虫管理</small>
             <shiro:user>
                 你好 , <shiro:principal property="loginName" />
+
+                <shiro:hasRole name="admin">
+
+                    ----管理员
+
+                </shiro:hasRole>
+
+                <shiro:hasRole name="user">
+
+                    -----普通用户
+
+                </shiro:hasRole>
+
             </shiro:user>
         </h1>
     </div>

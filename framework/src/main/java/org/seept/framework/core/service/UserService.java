@@ -1,8 +1,12 @@
 package org.seept.framework.core.service;
 
 import com.google.common.collect.Lists;
+import org.seept.framework.core.entity.Role;
 import org.seept.framework.core.entity.User;
+import org.seept.framework.core.entity.UserRole;
+import org.seept.framework.core.repository.RoleDao;
 import org.seept.framework.core.repository.UserDao;
+import org.seept.framework.core.repository.UserRoleDao;
 import org.seept.framework.core.util.QueryUtil;
 import org.seept.framework.modules.persistance.ParametersFilter;
 import org.seept.framework.modules.persistance.SpecificationManager;
@@ -34,6 +38,14 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+
+    @Autowired
+    private RoleDao roleDao;
+
+
+    @Autowired
+    private UserRoleDao userRoleDao;
 
     /**
      * 创建一个用户
@@ -143,4 +155,26 @@ public class UserService {
         return specification;
     }
 
+
+    /**
+     * 通过用户编号获取角色名称列表
+     * @return
+     */
+    public List<String> getRoleNameByUserId(String userid) {
+        List<String> roleList = Lists.newArrayList();
+        try {
+            List<UserRole> userRoles = userRoleDao.findByUserid(userid);
+            if(QueryUtil.isNotEmpty(userRoles)) {
+                for(UserRole userRole : userRoles) {
+                    Role role = roleDao.findOne(userRole.getRoleid());
+                    if(QueryUtil.isNotEmpty(role)) {
+                        roleList.add(role.getName());
+                    }
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return roleList;
+    }
 }
