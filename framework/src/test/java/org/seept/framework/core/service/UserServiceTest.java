@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import org.junit.Before;
 import org.junit.Test;
 import org.seept.framework.core.entity.User;
-import org.seept.framework.core.util.QueryUtil;
 import org.seept.framework.test.springtest.TransactionalTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ public class UserServiceTest extends TransactionalTestCase {
     @Autowired
     private UserService userService;
 
-    //@Before
+    @Before
     public void create() {
         logger.info("创建测试用户");
         User user = new User();
