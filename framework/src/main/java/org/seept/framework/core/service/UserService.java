@@ -20,10 +20,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +29,9 @@ import java.util.Map;
 @Component
 @Transactional
 public class UserService {
+
+    public static final String HASH_ALGORITHM = "SHA-1";//哈希算法
+    public static final int HASH_INTERATIONS = 1024;//哈希相互作用
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -65,9 +64,23 @@ public class UserService {
     }
 
 
-
+    /**
+     * 根据主键获取当前用户
+     * @param id
+     * @return
+     */
     public User getUser(String id) {
         return userDao.findById(id);
+    }
+
+
+    /**
+     * 注册用户
+     * @param user
+     * @return
+     */
+    public User registerUser(User user) {
+        return userDao.save(user);
     }
 
     /**

@@ -1,11 +1,13 @@
 package org.seept.framework.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -25,6 +27,7 @@ public class User extends AbstractEntity{
 
     private String loginName;//登陆名称
 
+    private String plainPassword;//明文密码
 
     public User() {
 
@@ -70,6 +73,15 @@ public class User extends AbstractEntity{
         this.registerDate = registerDate;
     }
 
+    @Transient
+    @JsonIgnore
+    public String getPlainPassword() {
+        return plainPassword;
+    }
+
+    public void setPlainPassword(String plainPassword) {
+        this.plainPassword = plainPassword;
+    }
 
     @Override
     public String toString() {
