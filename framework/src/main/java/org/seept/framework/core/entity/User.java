@@ -29,6 +29,8 @@ public class User extends AbstractEntity{
 
     private String plainPassword;//明文密码
 
+    private String salt;
+
     public User() {
 
     }
@@ -81,6 +83,14 @@ public class User extends AbstractEntity{
 
     public void setPlainPassword(String plainPassword) {
         this.plainPassword = plainPassword;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @Override

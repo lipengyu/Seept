@@ -4,6 +4,7 @@ create table s_user (
 	login_name varchar(64) not null unique,
 	name varchar(64) not null,
 	password varchar(255) not null,
+	salt varchar(64) not null,
 	register_date timestamp not null,
 	primary key (id)
 );

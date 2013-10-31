@@ -4,6 +4,7 @@
     LOGIN_NAME    VARCHAR2(64),
     NAME          VARCHAR2(64),
     PASSWORD      VARCHAR2(255),
+    SALT          VARCHAR2(64),
     REGISTER_DATE DATE
   );
   alter table S_USER
