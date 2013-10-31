@@ -6,9 +6,6 @@ import java.security.SecureRandom;
 
 /**
  * @author: Quan
- * @Description: 消息摘要工具类
- *
- * 支持SHA-1/MD5散列
  */
 public class DigestsUtil {
 
@@ -18,7 +15,6 @@ public class DigestsUtil {
     private static SecureRandom random = new SecureRandom();
 
     /**
-     * SHA-1加密
      * @param input
      * @return
      */
@@ -27,7 +23,6 @@ public class DigestsUtil {
     }
 
     /**
-     * MD5加密
      * @param input
      * @return
      */
@@ -37,7 +32,6 @@ public class DigestsUtil {
 
 
     /**
-     * 核心摘要分析方法
      * @return
      */
     private static byte[] digest(byte[] input , int iterations) {
