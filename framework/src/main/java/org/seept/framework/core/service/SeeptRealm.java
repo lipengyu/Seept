@@ -1,17 +1,19 @@
 package org.seept.framework.core.service;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.seept.framework.core.entity.User;
+import org.seept.framework.core.util.EncodesUtil;
 import org.seept.framework.core.util.QueryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +24,14 @@ public class SeeptRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
+
+    @PostConstruct
+    public void initHashCredentials() {
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(userService.HASH_ALGORITHM);
+        matcher.setHashIterations(userService.HASH_INTERATIONS);
+
+        setCredentialsMatcher(matcher);
+    }
 
     /**
      *授权操作
@@ -55,17 +65,17 @@ public class SeeptRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         User user = userService.findByLoginName(token.getUsername());
         if(QueryUtil.isNotEmpty(user)) {
-            System.out.println("用户校验成功,正在创建Security用户...");
+            byte[] salt = EncodesUtil.decodeHex(user.getSalt());
+
             simpleAuthenticationInfo = new SimpleAuthenticationInfo(
                     new SecurityUser(user.getId(),user.getLoginName(),user.getName()),
                     user.getPassword(),
-                    null,
+                    ByteSource.Util.bytes(salt), //密码算法加盐处理
                     getName()
             );
         }
         return simpleAuthenticationInfo;
     }
-
 
     /**
      * 安全用户信息对象,在这类定义为静态内部类(静态嵌套类)

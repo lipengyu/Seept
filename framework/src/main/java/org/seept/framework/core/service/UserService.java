@@ -1,12 +1,15 @@
 package org.seept.framework.core.service;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.seept.framework.core.entity.Role;
 import org.seept.framework.core.entity.User;
 import org.seept.framework.core.entity.UserRole;
 import org.seept.framework.core.repository.RoleDao;
 import org.seept.framework.core.repository.UserDao;
 import org.seept.framework.core.repository.UserRoleDao;
+import org.seept.framework.core.util.DigestsUtil;
+import org.seept.framework.core.util.EncodesUtil;
 import org.seept.framework.core.util.QueryUtil;
 import org.seept.framework.modules.persistance.ParametersFilter;
 import org.seept.framework.modules.persistance.SpecificationManager;
@@ -20,6 +23,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +36,7 @@ public class UserService {
 
     public static final String HASH_ALGORITHM = "SHA-1";//哈希算法
     public static final int HASH_INTERATIONS = 1024;//哈希相互作用
+    private static final int SALT_SIZE = 8;
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -69,7 +74,7 @@ public class UserService {
      * @param id
      * @return
      */
-    public User getUser(String id) {
+    public User findUserById(String id) {
         return userDao.findById(id);
     }
 
@@ -80,6 +85,8 @@ public class UserService {
      * @return
      */
     public User registerUser(User user) {
+        entryptPassword(user);
+        user.setRegisterDate(new Date());
         return userDao.save(user);
     }
 
@@ -89,6 +96,9 @@ public class UserService {
      * @return
      */
     public User updateUser(User user) {
+        if (StringUtils.isNotBlank(user.getPlainPassword())) {
+            entryptPassword(user);
+        }
         return userDao.save(user);
     }
 
@@ -189,5 +199,23 @@ public class UserService {
             e.printStackTrace();
         }
         return roleList;
+    }
+
+    /**
+     * 对用户密码进行散列加密
+     * @param user
+     */
+    private void entryptPassword(User user) {
+        /**
+         * 生成盐
+         */
+        byte[] salt = DigestsUtil.generateSalt(SALT_SIZE);
+        user.setSalt(EncodesUtil.encodeHex(salt));
+
+        /**
+         * 生成散列密码
+         */
+        byte[] password_hash = DigestsUtil.sha1(user.getPlainPassword().getBytes(),salt,HASH_INTERATIONS);
+        user.setPassword(EncodesUtil.encodeHex(password_hash));
     }
 }

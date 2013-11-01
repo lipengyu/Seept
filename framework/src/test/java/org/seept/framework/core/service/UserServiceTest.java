@@ -1,19 +1,17 @@
 package org.seept.framework.core.service;
 
-import com.google.common.collect.Maps;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.MockitoAnnotations;
 import org.seept.framework.core.entity.User;
+import org.seept.framework.test.security.ShiroTestUtils;
 import org.seept.framework.test.springtest.TransactionalTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author : lihaoquan
@@ -28,18 +26,27 @@ public class UserServiceTest extends TransactionalTestCase {
     private UserService userService;
 
     @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        ShiroTestUtils.mockSubject(new SeeptRealm.SecurityUser("ooooo1", "foo", "Foo"));
+    }
+
+    @Test
     public void create() {
         logger.info("创建测试用户");
         User user = new User();
-        user.setName("LiQuan");
-        user.setLoginName("admin");
-        user.setPassword("123");
+        user.setName("小明");
+        user.setLoginName("ming");
+        user.setPlainPassword("admin");
         user.setRegisterDate(new Date());
-        userService.createUser(user);
+        user =  userService.registerUser(user);
+        //691b14d79bf0fa2215f155235df5e670b64394cc
+        System.out.println("创建用户完成 : "+user.getLoginName()+"---"+user.getPassword()+"   " +
+                "         "+user.getSalt());
     }
 
 
-    @Test
+   /* @Test
     public void testPageQuery() {
 
         logger.info("UserService 分页单元测试开始");
@@ -61,5 +68,5 @@ public class UserServiceTest extends TransactionalTestCase {
 
         logger.info("roleList : "+roleList.size());
 
-    }
+    }*/
 }
