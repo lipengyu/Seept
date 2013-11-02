@@ -37,11 +37,11 @@ public class UserServiceTest extends TransactionalTestCase {
         User user = new User();
         user.setName("小明");
         user.setLoginName("ming");
-        user.setPlainPassword("admin");
+        user.setPlainPassword("123456");
         user.setRegisterDate(new Date());
-        user =  userService.registerUser(user);
+        userService.registerUser(user);
         //691b14d79bf0fa2215f155235df5e670b64394cc
-        System.out.println("创建用户完成 : "+user.getLoginName()+"---"+user.getPassword()+"   " +
+        System.out.println("创建用户完成 : "+user.getLoginName()+"--->>>"+user.getPassword()+"   " +
                 "         "+user.getSalt());
     }
 

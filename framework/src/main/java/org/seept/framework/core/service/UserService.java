@@ -84,10 +84,10 @@ public class UserService {
      * @param user
      * @return
      */
-    public User registerUser(User user) {
+    public void registerUser(User user) {
         entryptPassword(user);
         user.setRegisterDate(new Date());
-        return userDao.save(user);
+        userDao.save(user);
     }
 
     /**

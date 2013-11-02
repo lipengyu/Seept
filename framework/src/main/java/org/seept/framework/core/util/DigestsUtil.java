@@ -71,13 +71,13 @@ public class DigestsUtil {
 
             MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
             if(salt!=null) {
-                messageDigest.update(salt);
+                messageDigest.update(salt);//使用指定的salt更新摘要
             }
-            byte[] result = messageDigest.digest(input);
+            byte[] result = messageDigest.digest(input); //使用指定的字节数组对摘要进行最后更新，然后完成摘要计算。
 
             for(int i = 1; i< iterations; i++) {
                 messageDigest.reset();
-                result = messageDigest.digest(input);
+                result = messageDigest.digest(result);
             }
             return result;
         }catch (Exception e) {
