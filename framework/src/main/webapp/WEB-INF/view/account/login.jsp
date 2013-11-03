@@ -31,7 +31,7 @@
        <div class="control-group">
            <div class="controls">
                <input id="submit_btn" class="btn btn-primary" type="submit" value="登录"/>
-               <a class="btn" href="${ctx}/register">注册</a>
+               <a class="btn" href="${ctx}/web/register">注册</a>
            </div>
        </div>
    </form>
