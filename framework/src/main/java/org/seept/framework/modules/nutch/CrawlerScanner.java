@@ -20,6 +20,10 @@ public class CrawlerScanner {
         execute("jdk basic job");
     }
 
+    public void executeBySpringCron() {
+        execute("spring cron job by java");
+    }
+
     private void execute(String by) {
         long count = 80;
         logger.info("There are {} crawlers running now , printed by {}.", count, by);
