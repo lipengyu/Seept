@@ -22,6 +22,7 @@
             <value>
                 /web/login = authc
                 /web/register/** = anon
+                /cxf/** = anon
                 /tools/** = anon
                 /admin/** = roles[admin]
                 /** = user

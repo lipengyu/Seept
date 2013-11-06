@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <description>导入模块中的applicationContext配置文件</description>
+
+    <!-- 必需导入  -->
+    <import resource="security/applicationContext-shiro.xml" />
+
+    <!-- 可选导入 -->
+    <!-- import resource="schedule/applicationContext-jdk-timer.xml" / -->
+    <!-- import resource="schedule/applicationContext-springcron.xml" / -->
+    <import resource="webservice/applicationContext-webservice-jaxrs.xml"/>
+</beans>
