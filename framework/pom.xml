@@ -28,7 +28,8 @@
         <selenium.version>2.35.0</selenium.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <quartz.version>2.2.1</quartz.version>
-
+        <cxf.version>2.7.6</cxf.version>
+        <jackson.version>2.2.2</jackson.version>
         <!-- 项目属性 -->
         <jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
         <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
@@ -246,6 +247,63 @@
             <artifactId>quartz-jobs</artifactId>
             <version>${quartz.version}</version>
         </dependency>
+
+        <!-- Web Service 相关组件 -->
+        <!-- SOAP begin -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-core</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <!-- use javax.mail.mail instead -->
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
+                </exclusion>
+                <!-- use javax.activation.activation instead -->
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-activation_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <!-- see above -->
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-activation_1.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <!-- SOAP end -->
+
+        <!-- JAX-RS begin -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- JAX-RS end -->
+
 
         <!-- =========================== 框架依赖配置 结束========================= -->
 
