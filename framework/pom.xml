@@ -304,6 +304,22 @@
         </dependency>
         <!-- JAX-RS end -->
 
+        <!-- 构建本地依赖 -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.24</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/mysql-connector-java-5.1.24-bin.jar</systemPath>
+        </dependency>
 
         <!-- =========================== 框架依赖配置 结束========================= -->
 
