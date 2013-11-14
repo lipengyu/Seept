@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
        default-lazy-init="true">
 
     <description>采用Shiro的Jasig CAS 支持(单点登录)配置上下文配置文件</description>
 
-    <!-- 自定义Realm -->
-    <bean id="seeptRealm" class="org.seept.framework.core.service.SeeptRealm"/>
-
-
-    <bean id="securityManager"
-          class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="seeptRealm"/>
-        <property name="cacheManager" ref="shiroEhcacheManager" />
-    </bean>
-
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/web/login"/>
-        <property name="successUrl" value="/index.jsp"/>
-        <property name="unauthorizedUrl" value="/web/login"/>
+        <!-- 设定角色的登录链接，这里为cas登录页面的链接可配置回调地址  -->
+        <property name="loginUrl" value="http://127.0.0.1:8080/cas/login?service=http://127.0.0.1:7001/seept/shiro-cas" />
+
+        <property name="filters">
+            <util:map>
+                <!-- 添加casFilter到shiroFilter -->
+                <entry key="casFilter" value-ref="casFilter"/>
+            </util:map>
+        </property>
         <property name="filterChainDefinitions">
             <value>
+                /shiro-cas = casFilter
                 /web/login = authc
                 /web/register/** = anon
                 /cxf/** = anon
@@ -32,12 +30,32 @@
         </property>
     </bean>
 
-    <!-- 用户授权信息Cache, 采用EhCache -->
-    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml"/>
+
+    <bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
+        <!-- 配置验证错误时的失败页面  -->
+        <property name="failureUrl" value="/error.jsp"/>
     </bean>
+
+    <bean id="casRealm" class="org.apache.shiro.cas.CasRealm">
+        <property name="defaultRoles" value="ROLE_USER"/>
+        <property name="casServerUrlPrefix" value="http://127.0.0.1:8080/cas"/>
+        <!-- 客户端的回调地址设置，必须和下面的shiro-cas过滤器拦截的地址一致 -->
+        <property name="casService" value="http://127.0.0.1:7001/seept/shiro-cas"/>
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="casRealm"/>
+        <property name="subjectFactory" ref="casSubjectFactory"/>
+    </bean>
+
+    <bean id="casSubjectFactory" class="org.apache.shiro.cas.CasSubjectFactory"/>
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+        <property name="arguments" ref="securityManager"/>
+    </bean>
 
 </beans>
