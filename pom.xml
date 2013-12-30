@@ -30,6 +30,7 @@
     <!-- 项目模块 -->
     <modules>
         <module>framework</module>
+        <module>nutch</module>
     </modules>
 
 </project>
