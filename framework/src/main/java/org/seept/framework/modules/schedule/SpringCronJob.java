@@ -1,8 +1,6 @@
 package org.seept.framework.modules.schedule;
 
 import org.apache.commons.lang3.Validate;
-import org.seept.framework.modules.nutch.CrawlerScanner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 
@@ -22,9 +20,6 @@ public class SpringCronJob implements Runnable {
     private int shutdownTimeout = Integer.MAX_VALUE;
 
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
-
-    @Autowired
-    private CrawlerScanner crawlerScanner;
 
     /**
      * 初始化启动
@@ -56,7 +51,8 @@ public class SpringCronJob implements Runnable {
 
     @Override
     public void run() {
-        crawlerScanner.executeBySpringCron();
+        //crawlerScanner.executeBySpringCron();
+        System.out.println("-----------executeBySpringCron");
     }
 
     public String getCronExpression() {

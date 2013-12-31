@@ -2,8 +2,6 @@ package org.seept.framework.modules.schedule;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.commons.lang3.Validate;
-import org.seept.framework.modules.nutch.CrawlerScanner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.TaskUtils;
 
 import javax.annotation.PostConstruct;
@@ -24,10 +22,6 @@ public class JdkBasicJob implements Runnable {
     private int initialDelay = 0;//初始化延迟
 
     private int shutdownTimeout = Integer.MAX_VALUE;
-
-    @Autowired
-    private CrawlerScanner crawlerScanner;
-
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -61,7 +55,8 @@ public class JdkBasicJob implements Runnable {
 
     @Override
     public void run() {
-        crawlerScanner.executeByJdk();
+        //crawlerScanner.executeByJdk();
+        System.out.println("-----------executeByJdk");
     }
 
 
